@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+    <Folder Include="Rules\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ControleVeiculos.Domain\ControleVeiculos.Domain.csproj" />
+    <ProjectReference Include="..\ControleVeiculos.Infra.Data\ControleVeiculos.Infra.Data.csproj" />
+    <ProjectReference Include="..\ControleVeiculos.Service.Common\ControleVeiculos.Service.Common.csproj" />
+  </ItemGroup>
+
+</Project>

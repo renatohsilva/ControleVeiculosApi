@@ -8,15 +8,9 @@ namespace ControleVeiculos.Service.Validator.Validators
 {
     public class VeiculoValidator : AbstractValidator<Veiculo>
 	{
-        private readonly IVeiculoRepository veiculoRepository;
-        private readonly IPlacaValida placaValida;
-
-        public VeiculoValidator(IVeiculoRepository veiculoRepository, IPlacaValida placaValida)
+        public VeiculoValidator(IPlacaValida placaValida)
         {
-            this.veiculoRepository = veiculoRepository;
-            this.placaValida = placaValida;
-
-			RuleFor(x => x.Placa).Must(placaValida.IsPlaca).WithMessage("Placa inválida");
+        	RuleFor(x => x.Placa).Must(placaValida.IsPlaca).WithMessage("Placa inválida");
 			RuleFor(x => x.Marca).NotEmpty().WithMessage("Campo Marca é obrigatório!");
 			RuleFor(x => x.Modelo).NotEmpty().WithMessage("Campo Modelo é obrigatório!");
 			RuleFor(x => x.Ano).GreaterThan(0).WithMessage("Campo Ano é obrigatório!");

@@ -54,6 +54,7 @@ namespace ControleVeiculos.Application
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Controle de Veículos API", Version = "v1" });
             });
         }
+
         private void ConfigureAuthorization(IServiceCollection services)
         {
             services.AddAuthentication(x =>
@@ -115,7 +116,6 @@ namespace ControleVeiculos.Application
             }
 
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Controle de Veículos V1");
@@ -125,6 +125,12 @@ namespace ControleVeiculos.Application
 
             app.UseRouting();
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

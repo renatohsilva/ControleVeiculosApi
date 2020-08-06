@@ -18,12 +18,12 @@ namespace ControleVeiculos.Application.Controllers
     [ApiController]
     [Route("v1/[controller]")]
     [Authorize]
-    public class AbastecimentoController : ControllerBase
+    public class AbastecimentoController : BaseController
     {
         private readonly IAbastecimentoService abastecimentoService;
         private readonly IMapper mapper;
 
-        public AbastecimentoController(IAbastecimentoService abastecimentoService, IMapper mapper)
+        public AbastecimentoController(IAbastecimentoService abastecimentoService, IMapper mapper, IUsuarioService usuarioService) : base(usuarioService)
         {
             this.abastecimentoService = abastecimentoService;
             this.mapper = mapper;
@@ -50,6 +50,8 @@ namespace ControleVeiculos.Application.Controllers
             try
             {
                 var abastecimento = mapper.Map<AbastecimentoDto, Abastecimento>(abastecimentoDto);
+                abastecimento.Usuario = await GetUsuarioLogado();
+
                 await abastecimentoService.Create(abastecimento);
                 return CreatedAtAction(nameof(Post), new { id = abastecimento.Id }, abastecimentoDto);
             }
@@ -74,6 +76,7 @@ namespace ControleVeiculos.Application.Controllers
                     return NotFound();
 
                 var abastecimento = mapper.Map(abastecimentoDto, abastecimentoDatabase);
+                abastecimento.Usuario = await GetUsuarioLogado();
 
                 await abastecimentoService.Update(id, abastecimento);
                 return CreatedAtAction(nameof(Put), new { id = abastecimento.Id }, abastecimento);

@@ -3,15 +3,17 @@ using System;
 using ControleVeiculos.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ControleVeiculos.Infra.Data.Migrations
 {
     [DbContext(typeof(VeiculosDataContext))]
-    partial class VeiculosDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200806035835_AdicionarRelacaoUsuarioTabelas")]
+    partial class AdicionarRelacaoUsuarioTabelas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,9 +76,6 @@ namespace ControleVeiculos.Infra.Data.Migrations
                     b.Property<string>("NomeCompleto")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
 
                     b.Property<string>("Senha")
                         .IsRequired()

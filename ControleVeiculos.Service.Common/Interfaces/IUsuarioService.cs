@@ -5,6 +5,8 @@ namespace ControleVeiculos.Service.Common.Interfaces
 {
     public interface IUsuarioService : IGenericService<Usuario>
     {
-        Task<Usuario> Authenticate(string email, string senha);
+        Task<Usuario> Autenticar(string email, string senha);
+
+        Task<Usuario> LoadByEmail(string email);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ControleVeiculos.Infra.Data.Interfaces;
 using ControleVeiculos.Service.Common.Interfaces;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ControleVeiculos.Service.Common.Services
@@ -43,6 +44,15 @@ namespace ControleVeiculos.Service.Common.Services
         public IGenericRepository<TEntity> GetRepository()
         {
             return _genericRepository;
+        }
+
+
+        private void GetClains()
+        {
+            /*var userIdentity = (ClaimsIdentity)User.Identity;
+            var claims = userIdentity.Claims;
+            var roleClaimType = userIdentity.RoleClaimType;
+            var roles = claims.Where(c => c.Type == ClaimTypes.Role).ToList();*/
         }
 
         public abstract void Consistency(TEntity entity);

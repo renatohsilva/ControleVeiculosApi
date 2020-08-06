@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace ControleVeiculos.Application.Controllers
 {
     [ApiController]
-    [Route("v1/usuario")]
+    [Route("v1/[controller]")]
     public class UsuarioController : ControllerBase
     {
         private readonly ITokenService tokenService;
@@ -54,7 +54,7 @@ namespace ControleVeiculos.Application.Controllers
             try
             {
                 var dataBaseUsuario = mapper.Map<UsuarioDto, Usuario>(usuarioDto);
-                var usuario = await usuarioService.Authenticate(dataBaseUsuario.Email, dataBaseUsuario.Senha);
+                var usuario = await usuarioService.Autenticar(dataBaseUsuario.Email, dataBaseUsuario.Senha);
                 if (usuario != null)
                 {
                     var token = tokenService.GenerateToken(usuario);

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ControleVeiculos.Application.Controllers
@@ -17,12 +18,12 @@ namespace ControleVeiculos.Application.Controllers
     [ApiController]
     [Route("v1/[controller]")]
     [Authorize]
-    public class VeiculoController : ControllerBase
+    public class VeiculoController : BaseController
     {
         private readonly IVeiculoService veiculoService;
         private readonly IMapper mapper;
 
-        public VeiculoController(IVeiculoService veiculoService, IMapper mapper)
+        public VeiculoController(IVeiculoService veiculoService, IMapper mapper, IUsuarioService usuarioService) : base(usuarioService)
         {
             this.veiculoService = veiculoService;
             this.mapper = mapper;
@@ -49,6 +50,10 @@ namespace ControleVeiculos.Application.Controllers
             try
             {
                 var veiculo = mapper.Map<VeiculoDto, Veiculo>(veiculoDto);
+                
+                var usuario = await GetUsuarioLogado();
+                veiculo.UsuarioId = usuario.Id;
+                
                 await veiculoService.Create(veiculo);
                 return CreatedAtAction(nameof(Post), new { id = veiculo.Id }, veiculoDto);
             }
@@ -67,12 +72,14 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var veiculoDatabase = await veiculoService.GetById(id);
-
+                Usuario usuarioLogado = await GetUsuarioLogado();
+                var veiculoDatabase = await veiculoService.GetById(id);                
                 if (veiculoDatabase == null)
                     return NotFound();
 
                 var veiculo = mapper.Map(veiculoDto, veiculoDatabase);
+                var usuario = await GetUsuarioLogado();
+                veiculo.UsuarioId = usuario.Id;
 
                 await veiculoService.Update(id, veiculo);
                 return CreatedAtAction(nameof(Put), new { id = veiculo.Id }, veiculo);

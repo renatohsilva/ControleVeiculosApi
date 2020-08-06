@@ -12,7 +12,7 @@ namespace ControleVeiculos.Infra.Data.Repositories
         {
         }
 
-        public async Task<Usuario> Authenticate(string email, string senha)
+        public async Task<Usuario> Autenticar(string email, string senha)
         {
             return await GetDataContext().Set<Usuario>()
                 .AsNoTracking()

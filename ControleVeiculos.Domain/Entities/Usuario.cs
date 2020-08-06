@@ -12,5 +12,7 @@ namespace ControleVeiculos.Domain.Entities
         public string Senha { get; set; }
         [Required]
         public string NomeCompleto { get; set; }
+        [Required]
+        public TipoUsuario Role { get; set; }
     }
 }

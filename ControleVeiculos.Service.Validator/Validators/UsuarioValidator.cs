@@ -21,11 +21,11 @@ namespace ControleVeiculos.Service.Validator.Validators
 			RuleFor(x => x.Email).NotEmpty().WithMessage("Campo Email é obrigatório!");
 			RuleFor(x => x.Senha).NotEmpty().WithMessage("Campo Senha é obrigatório!");
 			RuleFor(x => x.NomeCompleto).NotEmpty().WithMessage("Campo Nome Completo é obrigatório!");
-			RuleFor(x => x).Must(IsUsuarioNameJaCadastrado).WithMessage("Usuário já cadastrado");
+			RuleFor(x => x).Must(IsUsuarioJaCadastrado).WithMessage("Usuário já cadastrado");
 			RuleFor(x => x).Must(ChecaForcaSenha).WithMessage("A senha deve conter ao menos 6 caracteres, letras maiusculas e minusculas e números");
 		}
 
-		private bool IsUsuarioNameJaCadastrado(Usuario usuario)
+		private bool IsUsuarioJaCadastrado(Usuario usuario)
 		{
 			var usuarioByEmail = usuarioRepository.LoadByEmail(usuario.Email).Result;
 			return usuarioByEmail == null || usuarioByEmail.Id != usuario.Id;

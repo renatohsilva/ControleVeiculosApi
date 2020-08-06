@@ -1,5 +1,6 @@
 ﻿using ControleVeiculos.Domain.Entities;
 using ControleVeiculos.Infra.Data.Interfaces;
+using ControleVeiculos.Service.Common.Interfaces;
 using ControleVeiculos.Service.Validator.Interfaces;
 using System;
 using System.Collections.Generic;

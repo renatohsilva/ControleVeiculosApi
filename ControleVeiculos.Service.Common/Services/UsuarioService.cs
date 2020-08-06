@@ -17,9 +17,14 @@ namespace ControleVeiculos.Service.Common.Services
             this.validatorUsuario = validatorUsuario;
         }
 
-        public async Task<Usuario> Authenticate(string email, string senha)
+        public async Task<Usuario> Autenticar(string email, string senha)
         {
-            return await usuarioRepository.Authenticate(email, senha);
+            return await usuarioRepository.Autenticar(email, senha);
+        }
+
+        public async Task<Usuario> LoadByEmail(string email)
+        {
+            return await usuarioRepository.LoadByEmail(email);
         }
 
         public override void Consistency(Usuario entity)

@@ -27,10 +27,11 @@ namespace ControleVeiculos.Service.Common.Services
                 Issuer = settingsService.GetSetting("IssuerKey"),
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, usuario.Email.ToString()),
-                    new Claim(ClaimTypes.Role, usuario.NomeCompleto.ToString())
+                    new Claim(ClaimTypes.Email, usuario.Email.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.NomeCompleto.ToString()),
+                    new Claim(ClaimTypes.Role, usuario.Role.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddDays(2),
+                Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

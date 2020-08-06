@@ -6,6 +6,8 @@ using ControleVeiculos.Infra.Data.Interfaces;
 using ControleVeiculos.Infra.Data.Repositories;
 using ControleVeiculos.Service.Common.Interfaces;
 using ControleVeiculos.Service.Common.Services;
+using ControleVeiculos.Service.Validator.Interfaces;
+using ControleVeiculos.Service.Validator.Rules;
 using ControleVeiculos.Service.Validator.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Builder;
@@ -51,18 +53,25 @@ namespace ControleVeiculos.Application
         {
             services.AddScoped<IVeiculoRepository, VeiculoRepository>();
             services.AddScoped<IAbastecimentoRepository, AbastecimentoRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         }
 
         public void ConfigureValidators(IServiceCollection services)
         {
+            services.AddScoped<IPlacaValida, PlacaValida>();
             services.AddScoped<IValidator<Veiculo>, VeiculoValidator>();
             services.AddScoped<IValidator<Abastecimento>, AbastecimentoValidator>();
+            services.AddScoped<IValidator<Usuario>, UsuarioValidator>();
         }
 
         public void ConfigureBusinessServices(IServiceCollection services)
         {
             services.AddScoped<IVeiculoService, VeiculoService>();
-            services.AddScoped<IAbastecimentoService, AbastecimentoService>();
+            services.AddScoped<IAbastecimentoService, AbastecimentoService>();            
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ISenhaService, SenhaService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
+            services.AddScoped<IConfigurationManagerService, ConfigurationManagerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

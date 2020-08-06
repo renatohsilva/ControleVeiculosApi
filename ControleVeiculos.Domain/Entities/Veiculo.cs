@@ -20,6 +20,9 @@ namespace ControleVeiculos.Domain.Entities
         public int Ano { get; set; }
 
         [Required]
+        public string Placa { get; set; }
+
+        [Required]
         [JsonProperty("Tipo")]
         [JsonConverter(typeof(StringEnumConverter))]
         public TipoVeiculo Tipo { get; set; }

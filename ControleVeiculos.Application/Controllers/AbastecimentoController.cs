@@ -5,6 +5,7 @@ using ControleVeiculos.Domain.DTOs;
 using ControleVeiculos.Domain.Entities;
 using ControleVeiculos.Service.Common.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,6 +17,7 @@ namespace ControleVeiculos.Application.Controllers
 {
     [ApiController]
     [Route("v1/[controller]")]
+    [Authorize]
     public class AbastecimentoController : ControllerBase
     {
         private readonly IAbastecimentoService abastecimentoService;

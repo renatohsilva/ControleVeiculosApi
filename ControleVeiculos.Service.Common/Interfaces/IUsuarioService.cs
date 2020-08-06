@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace ControleVeiculos.Service.Common.Interfaces
 {
-    public interface IVeiculoService : IGenericService<Veiculo>
+    public interface IUsuarioService : IGenericService<Usuario>
     {
-        Task<Veiculo> LoadVeiculoByPlaca(string placa);
+        Task<Usuario> Authenticate(string email, string senha);
     }
 }

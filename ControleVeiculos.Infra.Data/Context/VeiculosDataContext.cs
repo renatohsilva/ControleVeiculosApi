@@ -10,6 +10,9 @@ namespace ControleVeiculos.Infra.Data.Context
         }
 
         public DbSet<Veiculo> Veiculos { get; set; }
+
+        public DbSet<Abastecimento> Abastecimentos { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {            
             base.OnModelCreating(builder);

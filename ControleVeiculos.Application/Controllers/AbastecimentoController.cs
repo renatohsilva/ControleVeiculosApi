@@ -23,7 +23,7 @@ namespace ControleVeiculos.Application.Controllers
         private readonly IAbastecimentoService abastecimentoService;
         private readonly IMapper mapper;
 
-        public AbastecimentoController(IAbastecimentoService abastecimentoService, IMapper mapper, IUsuarioService usuarioService) : base(usuarioService)
+        public AbastecimentoController(IAbastecimentoService abastecimentoService, IMapper mapper)
         {
             this.abastecimentoService = abastecimentoService;
             this.mapper = mapper;
@@ -34,7 +34,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var abastecimentos = await abastecimentoService.GetAll().ToListAsync();
+                var abastecimentos = await abastecimentoService.GetAll(GetIdUsuarioLogado()).ToListAsync();
                 var abastecimentosDto = mapper.MapList<Abastecimento, AbastecimentoDto>(abastecimentos);
                 return Ok(abastecimentosDto);
             }
@@ -50,9 +50,7 @@ namespace ControleVeiculos.Application.Controllers
             try
             {
                 var abastecimento = mapper.Map<AbastecimentoDto, Abastecimento>(abastecimentoDto);
-                abastecimento.Usuario = await GetUsuarioLogado();
-
-                await abastecimentoService.Create(abastecimento);
+                await abastecimentoService.Create(abastecimento, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Post), new { id = abastecimento.Id }, abastecimentoDto);
             }
             catch (ValidationException vex)
@@ -70,15 +68,13 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var abastecimentoDatabase = await abastecimentoService.GetById(id);
+                var abastecimentoDatabase = await abastecimentoService.GetById(id, GetIdUsuarioLogado());
 
                 if (abastecimentoDatabase == null)
                     return NotFound();
 
                 var abastecimento = mapper.Map(abastecimentoDto, abastecimentoDatabase);
-                abastecimento.Usuario = await GetUsuarioLogado();
-
-                await abastecimentoService.Update(id, abastecimento);
+                await abastecimentoService.Update(id, abastecimento, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Put), new { id = abastecimento.Id }, abastecimento);
             }
             catch (ValidationException vex)
@@ -96,7 +92,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var abastecimento = await abastecimentoService.GetById(id);
+                var abastecimento = await abastecimentoService.GetById(id, GetIdUsuarioLogado());
 
                 if (abastecimento == null)
                     return NotFound();
@@ -115,7 +111,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var abastecimento = await abastecimentoService.GetById(id);
+                var abastecimento = await abastecimentoService.GetById(id, GetIdUsuarioLogado());
 
                 if (abastecimento == null)
                     return NotFound();

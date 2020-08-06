@@ -11,24 +11,17 @@ namespace ControleVeiculos.Application.Controllers
 {
     public abstract class BaseController : ControllerBase
     {
-        private readonly IUsuarioService usuarioService;
-
-        public BaseController(IUsuarioService usuarioService)
+        protected int GetIdUsuarioLogado()
         {
-            this.usuarioService = usuarioService;
+            string valorEncontrado = GetUsuarioLogado();
+            int.TryParse(valorEncontrado, out int idUsuario);
+            return idUsuario;
         }
 
-        protected async Task<Usuario> GetUsuarioLogado()
-        {
-            string emailUsuarioLogado = GetEmailusuarioLogado();
-            Usuario usuarioLogado = await usuarioService.LoadByEmail(emailUsuarioLogado);
-            return usuarioLogado;
-        }
-
-        private string GetEmailusuarioLogado()
+        private string GetUsuarioLogado()
         {
             var claimsIdentity = User.Identity as ClaimsIdentity;
-            return claimsIdentity.FindFirst(ClaimTypes.Email)?.Value;
+            return claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
         }
     }
 }

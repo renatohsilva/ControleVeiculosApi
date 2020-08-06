@@ -34,7 +34,7 @@ namespace ControleVeiculos.Application.Controllers
             try
             {
                 var usuario = mapper.Map<UsuarioDto, Usuario>(usuarioDto);
-                await usuarioService.Create(usuario);
+                await usuarioService.Registrar(usuario);
                 return CreatedAtAction(nameof(Registrar), new { id = usuario.Id }, usuarioDto);
             }
             catch (ValidationException vex)

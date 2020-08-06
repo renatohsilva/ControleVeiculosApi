@@ -5,11 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleVeiculos.Domain.Entities
 {
-    public class Veiculo : IEntity
+    public class Veiculo : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string Marca { get; set; }
 
@@ -37,9 +34,5 @@ namespace ControleVeiculos.Domain.Entities
 
         [Column(TypeName = "bytea")]
         public byte[] Foto { get; set; }
-
-        public int UsuarioId { get; set; }
-
-        public Usuario Usuario { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace ControleVeiculos.Service.Common.Services
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, usuario.Email.ToString()),
-                    new Claim(ClaimTypes.Name, usuario.NomeCompleto.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Id.ToString()),
                     new Claim(ClaimTypes.Role, usuario.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),

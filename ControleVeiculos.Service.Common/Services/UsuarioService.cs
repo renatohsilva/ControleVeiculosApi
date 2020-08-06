@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ControleVeiculos.Service.Common.Services
 {
-    public class UsuarioService : GenericService<Usuario>, IUsuarioService
+    public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository usuarioRepository;
         private readonly IValidator<Usuario> validatorUsuario;
 
-        public UsuarioService(IUsuarioRepository usuarioRepository, IValidator<Usuario> validatorUsuario) : base(usuarioRepository)
+        public UsuarioService(IUsuarioRepository usuarioRepository, IValidator<Usuario> validatorUsuario)
         {
             this.usuarioRepository = usuarioRepository;
             this.validatorUsuario = validatorUsuario;
@@ -22,12 +22,18 @@ namespace ControleVeiculos.Service.Common.Services
             return await usuarioRepository.Autenticar(email, senha);
         }
 
+        public async Task Registrar(Usuario usuario)
+        {
+            Consistency(usuario);
+            await usuarioRepository.Create(usuario);
+        }        
+
         public async Task<Usuario> LoadByEmail(string email)
         {
             return await usuarioRepository.LoadByEmail(email);
         }
 
-        public override void Consistency(Usuario entity)
+        private void Consistency(Usuario entity)
         {
             validatorUsuario.ValidateAndThrow(entity);
         }

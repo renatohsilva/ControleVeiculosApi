@@ -23,7 +23,7 @@ namespace ControleVeiculos.Application.Controllers
         private readonly IVeiculoService veiculoService;
         private readonly IMapper mapper;
 
-        public VeiculoController(IVeiculoService veiculoService, IMapper mapper, IUsuarioService usuarioService) : base(usuarioService)
+        public VeiculoController(IVeiculoService veiculoService, IMapper mapper)
         {
             this.veiculoService = veiculoService;
             this.mapper = mapper;
@@ -34,7 +34,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var veiculos = await veiculoService.GetAll().ToListAsync();
+                var veiculos = await veiculoService.GetAll(GetIdUsuarioLogado()).ToListAsync();
                 var veiculosDto = mapper.MapList<Veiculo, VeiculoDto>(veiculos);
                 return Ok(veiculosDto);
             }
@@ -50,11 +50,7 @@ namespace ControleVeiculos.Application.Controllers
             try
             {
                 var veiculo = mapper.Map<VeiculoDto, Veiculo>(veiculoDto);
-                
-                var usuario = await GetUsuarioLogado();
-                veiculo.UsuarioId = usuario.Id;
-                
-                await veiculoService.Create(veiculo);
+                await veiculoService.Create(veiculo, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Post), new { id = veiculo.Id }, veiculoDto);
             }
             catch (ValidationException vex)
@@ -72,16 +68,12 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                Usuario usuarioLogado = await GetUsuarioLogado();
-                var veiculoDatabase = await veiculoService.GetById(id);                
+                var veiculoDatabase = await veiculoService.GetById(id, GetIdUsuarioLogado());                
                 if (veiculoDatabase == null)
                     return NotFound();
 
                 var veiculo = mapper.Map(veiculoDto, veiculoDatabase);
-                var usuario = await GetUsuarioLogado();
-                veiculo.UsuarioId = usuario.Id;
-
-                await veiculoService.Update(id, veiculo);
+                await veiculoService.Update(id, veiculo, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Put), new { id = veiculo.Id }, veiculo);
             }
             catch (ValidationException vex)
@@ -99,7 +91,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var veiculo = await veiculoService.GetById(id);
+                var veiculo = await veiculoService.GetById(id, GetIdUsuarioLogado());
 
                 if (veiculo == null)
                     return NotFound();
@@ -118,7 +110,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var veiculo = await veiculoService.GetById(id);
+                var veiculo = await veiculoService.GetById(id, GetIdUsuarioLogado());
 
                 if (veiculo == null)
                     return NotFound();

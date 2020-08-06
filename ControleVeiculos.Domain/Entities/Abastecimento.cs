@@ -6,11 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ControleVeiculos.Domain.Entities
 {
-    public class Abastecimento : IEntity
+    public class Abastecimento : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public decimal KmAbastecimento { get; set; }
 
@@ -34,9 +31,5 @@ namespace ControleVeiculos.Domain.Entities
         public int VeiculoId { get; set; }
 
         public Veiculo Veiculo { get; set; }
-
-        public int UsuarioId { get; set; }
-
-        public Usuario Usuario { get; set; }
     }
 }

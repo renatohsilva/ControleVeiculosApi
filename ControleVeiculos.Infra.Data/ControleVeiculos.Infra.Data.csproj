@@ -11,6 +11,10 @@
     <Compile Remove="Migrations\20200805050548_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20200805050758_InitialMigration.cs" />
     <Compile Remove="Migrations\20200805050758_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200806000838_InclusaoEntidadeCombustivel.cs" />
+    <Compile Remove="Migrations\20200806000838_InclusaoEntidadeCombustivel.Designer.cs" />
+    <Compile Remove="Migrations\20200806003029_InclusaoEntidadeCombustivel.cs" />
+    <Compile Remove="Migrations\20200806003029_InclusaoEntidadeCombustivel.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

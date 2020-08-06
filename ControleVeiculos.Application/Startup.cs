@@ -50,16 +50,19 @@ namespace ControleVeiculos.Application
         public void ConfigureRepositories(IServiceCollection services)
         {
             services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+            services.AddScoped<IAbastecimentoRepository, AbastecimentoRepository>();
         }
 
         public void ConfigureValidators(IServiceCollection services)
         {
             services.AddScoped<IValidator<Veiculo>, VeiculoValidator>();
+            services.AddScoped<IValidator<Abastecimento>, AbastecimentoValidator>();
         }
 
         public void ConfigureBusinessServices(IServiceCollection services)
         {
             services.AddScoped<IVeiculoService, VeiculoService>();
+            services.AddScoped<IAbastecimentoService, AbastecimentoService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

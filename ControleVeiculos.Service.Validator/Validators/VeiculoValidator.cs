@@ -7,10 +7,10 @@ namespace ControleVeiculos.Service.Validator.Validators
 	{
 		public VeiculoValidator()
 		{
-			RuleFor(x => x.Marca).NotEmpty().WithMessage("Campo marca é obrigatório!");
-			RuleFor(x => x.Modelo).NotEmpty().WithMessage("Campo modelo é obrigatório!");
-			RuleFor(x => x.Ano).GreaterThan(0).WithMessage("Campo ano é obrigatório!");
-			RuleFor(x => x.Quilometragem).GreaterThanOrEqualTo(0).WithMessage("Campo quilometragem é obrigatório!");
+			RuleFor(x => x.Marca).NotEmpty().WithMessage("Campo Marca é obrigatório!");
+			RuleFor(x => x.Modelo).NotEmpty().WithMessage("Campo Modelo é obrigatório!");
+			RuleFor(x => x.Ano).GreaterThan(0).WithMessage("Campo Ano é obrigatório!");
+			RuleFor(x => x.Quilometragem).GreaterThanOrEqualTo(0).WithMessage("Campo Quilometragem é obrigatório!");
 		}
 	}
 }

@@ -1,11 +1,14 @@
-﻿using ControleVeiculos.Infra.Data.Interfaces;
+﻿using ControleVeiculos.Domain.Entities;
+using ControleVeiculos.Infra.Data.Interfaces;
 using ControleVeiculos.Service.Common.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ControleVeiculos.Service.Common.Services
 {
-    public abstract class GenericService<TEntity> : IGenericService<TEntity> where TEntity : class
+    public abstract class GenericService<TEntity> : IGenericService<TEntity> where TEntity : BaseEntity
     {
         private readonly IGenericRepository<TEntity> _genericRepository;
         public GenericService(IGenericRepository<TEntity> genericRepository)
@@ -13,24 +16,26 @@ namespace ControleVeiculos.Service.Common.Services
             _genericRepository = genericRepository;
         }
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll(int idUsuario)
         {
-            return GetRepository().GetAll();
+            return GetRepository().GetAll().Where(item => item.UsuarioId == idUsuario);
         }
 
-        public async Task Create(TEntity entity)
+        public async Task Create(TEntity entity, int idUsuario)
         {
+            entity.UsuarioId = idUsuario;
             Consistency(entity);
             await GetRepository().Create(entity);
         }
 
-        public Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(int id, int idUsuario)
         {
-            return GetRepository().GetById(id);
+            return await GetAll(idUsuario).FirstOrDefaultAsync(item => item.Id == id);
         }
 
-        public async Task Update(int id, TEntity entity)
+        public async Task Update(int id, TEntity entity, int idUsuario)
         {
+            entity.UsuarioId = idUsuario;
             Consistency(entity);
             await GetRepository().Update(id, entity);
         }

@@ -3,15 +3,17 @@ using System;
 using ControleVeiculos.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ControleVeiculos.Infra.Data.Migrations
 {
     [DbContext(typeof(VeiculosDataContext))]
-    partial class VeiculosDataContextModelSnapshot : ModelSnapshot
+    [Migration("20200806015626_InclusaoPlacaNaTabelaDeVeiculo")]
+    partial class InclusaoPlacaNaTabelaDeVeiculo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,9 +44,6 @@ namespace ControleVeiculos.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("ValorPago")
                         .HasColumnType("numeric");
 
@@ -53,38 +52,9 @@ namespace ControleVeiculos.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
-
                     b.HasIndex("VeiculoId");
 
                     b.ToTable("Abastecimentos");
-                });
-
-            modelBuilder.Entity("ControleVeiculos.Domain.Entities.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("NomeCompleto")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Senha")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("ControleVeiculos.Domain.Entities.Veiculo", b =>
@@ -121,36 +91,16 @@ namespace ControleVeiculos.Infra.Data.Migrations
                     b.Property<int>("Tipo")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Veiculos");
                 });
 
             modelBuilder.Entity("ControleVeiculos.Domain.Entities.Abastecimento", b =>
                 {
-                    b.HasOne("ControleVeiculos.Domain.Entities.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ControleVeiculos.Domain.Entities.Veiculo", "Veiculo")
                         .WithMany()
                         .HasForeignKey("VeiculoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ControleVeiculos.Domain.Entities.Veiculo", b =>
-                {
-                    b.HasOne("ControleVeiculos.Domain.Entities.Usuario", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

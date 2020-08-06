@@ -5,6 +5,7 @@ using ControleVeiculos.Domain.DTOs;
 using ControleVeiculos.Domain.Entities;
 using ControleVeiculos.Service.Common.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +17,8 @@ namespace ControleVeiculos.Application.Controllers
 {
     [ApiController]
     [Route("v1/[controller]")]
-    public class AbastecimentoController : ControllerBase
+    [Authorize]
+    public class AbastecimentoController : BaseController
     {
         private readonly IAbastecimentoService abastecimentoService;
         private readonly IMapper mapper;
@@ -32,7 +34,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var abastecimentos = await abastecimentoService.GetAll().ToListAsync();
+                var abastecimentos = await abastecimentoService.GetAll(GetIdUsuarioLogado()).ToListAsync();
                 var abastecimentosDto = mapper.MapList<Abastecimento, AbastecimentoDto>(abastecimentos);
                 return Ok(abastecimentosDto);
             }
@@ -43,12 +45,13 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Abastecimento>> Post([FromBody] AbastecimentoDto abastecimentoDto)
         {
             try
             {
                 var abastecimento = mapper.Map<AbastecimentoDto, Abastecimento>(abastecimentoDto);
-                await abastecimentoService.Create(abastecimento);
+                await abastecimentoService.Create(abastecimento, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Post), new { id = abastecimento.Id }, abastecimentoDto);
             }
             catch (ValidationException vex)
@@ -62,18 +65,18 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AbastecimentoDto>> Put(int id, [FromBody] AbastecimentoDto abastecimentoDto)
         {
             try
             {
-                var abastecimentoDatabase = await abastecimentoService.GetById(id);
+                var abastecimentoDatabase = await abastecimentoService.GetById(id, GetIdUsuarioLogado());
 
                 if (abastecimentoDatabase == null)
                     return NotFound();
 
                 var abastecimento = mapper.Map(abastecimentoDto, abastecimentoDatabase);
-
-                await abastecimentoService.Update(id, abastecimento);
+                await abastecimentoService.Update(id, abastecimento, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Put), new { id = abastecimento.Id }, abastecimento);
             }
             catch (ValidationException vex)
@@ -91,7 +94,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var abastecimento = await abastecimentoService.GetById(id);
+                var abastecimento = await abastecimentoService.GetById(id, GetIdUsuarioLogado());
 
                 if (abastecimento == null)
                     return NotFound();
@@ -106,11 +109,12 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AbastecimentoDto>> Delete(int id)
         {
             try
             {
-                var abastecimento = await abastecimentoService.GetById(id);
+                var abastecimento = await abastecimentoService.GetById(id, GetIdUsuarioLogado());
 
                 if (abastecimento == null)
                     return NotFound();

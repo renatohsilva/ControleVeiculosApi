@@ -8,6 +8,8 @@
 
         public int Ano { get; set; }
 
+        public string Placa { get; set; }
+
         public string Tipo { get; set; }
 
         public string Combustivel { get; set; }

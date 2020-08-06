@@ -5,17 +5,20 @@ using ControleVeiculos.Domain.DTOs;
 using ControleVeiculos.Domain.Entities;
 using ControleVeiculos.Service.Common.Interfaces;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ControleVeiculos.Application.Controllers
 {
     [ApiController]
     [Route("v1/[controller]")]
-    public class VeiculoController : ControllerBase
+    [Authorize]
+    public class VeiculoController : BaseController
     {
         private readonly IVeiculoService veiculoService;
         private readonly IMapper mapper;
@@ -31,7 +34,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var veiculos = await veiculoService.GetAll().ToListAsync();
+                var veiculos = await veiculoService.GetAll(GetIdUsuarioLogado()).ToListAsync();
                 var veiculosDto = mapper.MapList<Veiculo, VeiculoDto>(veiculos);
                 return Ok(veiculosDto);
             }
@@ -42,12 +45,13 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Veiculo>> Post([FromBody] VeiculoDto veiculoDto)
         {
             try
             {
                 var veiculo = mapper.Map<VeiculoDto, Veiculo>(veiculoDto);
-                await veiculoService.Create(veiculo);
+                await veiculoService.Create(veiculo, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Post), new { id = veiculo.Id }, veiculoDto);
             }
             catch (ValidationException vex)
@@ -61,18 +65,17 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VeiculoDto>> Put(int id, [FromBody] VeiculoDto veiculoDto)
         {
             try
             {
-                var veiculoDatabase = await veiculoService.GetById(id);
-
+                var veiculoDatabase = await veiculoService.GetById(id, GetIdUsuarioLogado());                
                 if (veiculoDatabase == null)
                     return NotFound();
 
                 var veiculo = mapper.Map(veiculoDto, veiculoDatabase);
-
-                await veiculoService.Update(id, veiculo);
+                await veiculoService.Update(id, veiculo, GetIdUsuarioLogado());
                 return CreatedAtAction(nameof(Put), new { id = veiculo.Id }, veiculo);
             }
             catch (ValidationException vex)
@@ -90,7 +93,7 @@ namespace ControleVeiculos.Application.Controllers
         {
             try
             {
-                var veiculo = await veiculoService.GetById(id);
+                var veiculo = await veiculoService.GetById(id, GetIdUsuarioLogado());
 
                 if (veiculo == null)
                     return NotFound();
@@ -105,11 +108,12 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VeiculoDto>> Delete(int id)
         {
             try
             {
-                var veiculo = await veiculoService.GetById(id);
+                var veiculo = await veiculoService.GetById(id, GetIdUsuarioLogado());
 
                 if (veiculo == null)
                     return NotFound();

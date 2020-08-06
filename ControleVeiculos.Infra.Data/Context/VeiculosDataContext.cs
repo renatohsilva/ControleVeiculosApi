@@ -9,6 +9,8 @@ namespace ControleVeiculos.Infra.Data.Context
         {
         }
 
+        public DbSet<Usuario> Usuarios { get; set; }
+
         public DbSet<Veiculo> Veiculos { get; set; }
 
         public DbSet<Abastecimento> Abastecimentos { get; set; }

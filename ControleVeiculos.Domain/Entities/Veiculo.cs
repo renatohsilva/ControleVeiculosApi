@@ -5,11 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ControleVeiculos.Domain.Entities
 {
-    public class Veiculo : IEntity
+    public class Veiculo : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string Marca { get; set; }
 
@@ -18,6 +15,9 @@ namespace ControleVeiculos.Domain.Entities
 
         [Required]
         public int Ano { get; set; }
+
+        [Required]
+        public string Placa { get; set; }
 
         [Required]
         [JsonProperty("Tipo")]

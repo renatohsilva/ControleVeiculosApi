@@ -45,6 +45,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Veiculo>> Post([FromBody] VeiculoDto veiculoDto)
         {
             try
@@ -64,6 +65,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VeiculoDto>> Put(int id, [FromBody] VeiculoDto veiculoDto)
         {
             try
@@ -106,6 +108,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<VeiculoDto>> Delete(int id)
         {
             try

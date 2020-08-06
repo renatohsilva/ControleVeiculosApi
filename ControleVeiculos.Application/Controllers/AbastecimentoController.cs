@@ -45,6 +45,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Abastecimento>> Post([FromBody] AbastecimentoDto abastecimentoDto)
         {
             try
@@ -64,6 +65,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AbastecimentoDto>> Put(int id, [FromBody] AbastecimentoDto abastecimentoDto)
         {
             try
@@ -107,6 +109,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<AbastecimentoDto>> Delete(int id)
         {
             try

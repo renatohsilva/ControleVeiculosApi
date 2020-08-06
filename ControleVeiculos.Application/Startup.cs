@@ -42,11 +42,16 @@ namespace ControleVeiculos.Application
                 opt.UseNpgsql(Configuration.GetConnectionString("ApiConection"));
             });
 
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddControllers().AddNewtonsoftJson().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+            }); 
+
             ConfigureAuthorization(services);
             ConfigureRepositories(services);
             ConfigureValidators(services);
             ConfigureBusinessServices(services);
+
             services.AddAutoMapper(Assembly.Load(Assembly.GetAssembly(typeof(VeiculoMappingProfile)).FullName));
 
             services.AddSwaggerGen(c =>
@@ -96,10 +101,11 @@ namespace ControleVeiculos.Application
         public void ConfigureBusinessServices(IServiceCollection services)
         {
             services.AddScoped<IVeiculoService, VeiculoService>();
-            services.AddScoped<IAbastecimentoService, AbastecimentoService>();            
+            services.AddScoped<IAbastecimentoService, AbastecimentoService>();
+            services.AddScoped<IRelatorioService, RelatorioService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISenhaService, SenhaService>();
-            services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IConfigurationManagerService, ConfigurationManagerService>();
         }
 

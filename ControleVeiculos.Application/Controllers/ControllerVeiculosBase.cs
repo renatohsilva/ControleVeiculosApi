@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ControleVeiculos.Application.Controllers
 {
-    public abstract class BaseController : ControllerBase
+    public abstract class ControllerVeiculosBase : ControllerBase
     {
         protected int GetIdUsuarioLogado()
         {

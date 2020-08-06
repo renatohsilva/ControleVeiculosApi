@@ -18,7 +18,7 @@ namespace ControleVeiculos.Application.Controllers
     [ApiController]
     [Route("v1/[controller]")]
     [Authorize]
-    public class AbastecimentoController : BaseController
+    public class AbastecimentoController : ControllerVeiculosBase
     {
         private readonly IAbastecimentoService abastecimentoService;
         private readonly IMapper mapper;

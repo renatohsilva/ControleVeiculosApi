@@ -16,6 +16,7 @@ namespace ControleVeiculos.Service.Validator.Validators
 			RuleFor(x => x.Ano).GreaterThan(0).WithMessage("Campo Ano é obrigatório!");
 			RuleFor(x => x.Quilometragem).GreaterThanOrEqualTo(0).WithMessage("Campo Quilometragem é obrigatório!");
 			RuleFor(x => x).Must(placaValida.IsPlacaInexistente).WithMessage("Veiculo já cadastrado");
+			RuleFor(x => x.UsuarioId).GreaterThan(0).WithMessage("Campo Identificador do Usuário é obrigatório!");
 		}
 	}
 }

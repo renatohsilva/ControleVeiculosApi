@@ -27,15 +27,15 @@ namespace ControleVeiculos.Application.Controllers
             this.mapper = mapper;
         }
 
-        [HttpPost("register")]
+        [HttpPost("registrar")]
         [AllowAnonymous]
-        public async Task<ActionResult> Register([FromBody] UsuarioDto usuarioDto)
+        public async Task<ActionResult> Registrar([FromBody] UsuarioDto usuarioDto)
         {
             try
             {
                 var usuario = mapper.Map<UsuarioDto, Usuario>(usuarioDto);
                 await usuarioService.Create(usuario);
-                return CreatedAtAction(nameof(Register), new { id = usuario.Id }, usuarioDto);
+                return CreatedAtAction(nameof(Registrar), new { id = usuario.Id }, usuarioDto);
             }
             catch (ValidationException vex)
             {
@@ -47,9 +47,9 @@ namespace ControleVeiculos.Application.Controllers
             }
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("autenticar")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] UsuarioDto usuarioDto)
+        public async Task<ActionResult<dynamic>> Autenticar([FromBody] UsuarioDto usuarioDto)
         {
             try
             {

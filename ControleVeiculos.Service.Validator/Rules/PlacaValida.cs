@@ -19,8 +19,12 @@ namespace ControleVeiculos.Service.Validator.Rules
 
         public bool IsPlaca(string placa)
         {
-            string placaRegex = "[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}|[A-Z]{3}\\-[0-9]{4}";
-            return Regex.IsMatch(placa, placaRegex);
+            if (!string.IsNullOrWhiteSpace(placa))
+            {
+                string placaRegex = "[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}|[A-Z]{3}\\-[0-9]{4}";
+                return Regex.IsMatch(placa, placaRegex);
+            }
+            return false;
         }
 
         public bool IsPlacaInexistente(Veiculo veiculo)

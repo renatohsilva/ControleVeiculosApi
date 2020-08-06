@@ -10,24 +10,29 @@ using ControleVeiculos.Service.Validator.Interfaces;
 using ControleVeiculos.Service.Validator.Rules;
 using ControleVeiculos.Service.Validator.Validators;
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Text;
 
 namespace ControleVeiculos.Application
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Env = env;
         }
 
+        public IWebHostEnvironment Env { get; }
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
@@ -38,6 +43,7 @@ namespace ControleVeiculos.Application
             });
 
             services.AddControllers().AddNewtonsoftJson();
+            ConfigureAuthorization(services);
             ConfigureRepositories(services);
             ConfigureValidators(services);
             ConfigureBusinessServices(services);
@@ -46,6 +52,28 @@ namespace ControleVeiculos.Application
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Controle de Veículos API", Version = "v1" });
+            });
+        }
+        private void ConfigureAuthorization(IServiceCollection services)
+        {
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["IssuerKey"],
+                    ValidAudience = Configuration["AudienceKey"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration[GetSecurityKeyName()])),
+                };
             });
         }
 
@@ -72,6 +100,11 @@ namespace ControleVeiculos.Application
             services.AddScoped<ISenhaService, SenhaService>();
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IConfigurationManagerService, ConfigurationManagerService>();
+        }
+
+        public string GetSecurityKeyName()
+        {
+            return Env.IsDevelopment() ? "SecurityKeyDev" : "SecurityKey";
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

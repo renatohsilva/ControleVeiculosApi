@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{65537801-D015-4203-AA7D-22A542710705}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Application.Common", "ControleVeiculos.Application.Common\ControleVeiculos.Application.Common.csproj", "{07378410-6C37-4F67-ABAF-343EA5B1B94F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleVeiculos.Application.Common", "ControleVeiculos.Application.Common\ControleVeiculos.Application.Common.csproj", "{07378410-6C37-4F67-ABAF-343EA5B1B94F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{B8EFA200-11A3-49CB-9B7E-968B648A97DB}"
 EndProject
@@ -19,19 +19,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{ACFA9D39
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{942ED434-8ED3-4007-A40E-7F89791D3C88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Domain", "ControleVeiculos.Domain\ControleVeiculos.Domain.csproj", "{51ED6E2F-0B3B-48F0-BA43-E7AB571C9140}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleVeiculos.Domain", "ControleVeiculos.Domain\ControleVeiculos.Domain.csproj", "{51ED6E2F-0B3B-48F0-BA43-E7AB571C9140}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{1CE3CF43-635C-4E62-BCE7-6572F92D8F06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Infra.Data", "ControleVeiculos.Infra.Data\ControleVeiculos.Infra.Data.csproj", "{170D5F24-487F-4CC8-8BA1-6E048A69EE15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleVeiculos.Infra.Data", "ControleVeiculos.Infra.Data\ControleVeiculos.Infra.Data.csproj", "{170D5F24-487F-4CC8-8BA1-6E048A69EE15}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9FEC5B51-8250-47E2-95B8-76A0892B9C71}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validator", "Validator", "{61A21C97-9305-4951-B98F-CAA126DB9E65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Service.Common", "ControleVeiculos.Service.Common\ControleVeiculos.Service.Common.csproj", "{BF47091F-ED8C-4F8F-9B0D-7F0835E8B6E6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleVeiculos.Service.Common", "ControleVeiculos.Service.Common\ControleVeiculos.Service.Common.csproj", "{BF47091F-ED8C-4F8F-9B0D-7F0835E8B6E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Service.Validator", "ControleVeiculos.Service.Validator\ControleVeiculos.Service.Validator.csproj", "{5771EC75-4DE0-4949-AA9B-7BDB9F62A7EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControleVeiculos.Service.Validator", "ControleVeiculos.Service.Validator\ControleVeiculos.Service.Validator.csproj", "{5771EC75-4DE0-4949-AA9B-7BDB9F62A7EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{251ABFE5-5339-4837-8788-CB49734669D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{52396993-CF41-4CDF-AEC7-8B438E73DE25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E8B12FE6-A241-48F8-9F78-62257A12365F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{4E61E2C5-1AD0-4FCA-A554-2732BADAA588}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{96A8DEB3-B383-4F4C-9134-791FA6C80C04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Service.Common.Tests", "ControleVeiculos.Service.Common.Tests\ControleVeiculos.Service.Common.Tests.csproj", "{EC1AA4B7-1155-47E0-8EDF-68F724891132}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Application.Common.Tests", "ControleVeiculos.Application.Common.Tests\ControleVeiculos.Application.Common.Tests.csproj", "{29A19723-8AE6-4B10-AA7C-7B78D0EC77B6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Util", "Util", "{F7DBC93F-7E7B-4ED8-BD8D-A1C0EB1DA371}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleVeiculos.Tests.Util", "ControleVeiculos.Tests.Util\ControleVeiculos.Tests.Util.csproj", "{FA5C0B31-8326-45F4-A60D-00F051BC106E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +81,18 @@ Global
 		{5771EC75-4DE0-4949-AA9B-7BDB9F62A7EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5771EC75-4DE0-4949-AA9B-7BDB9F62A7EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5771EC75-4DE0-4949-AA9B-7BDB9F62A7EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC1AA4B7-1155-47E0-8EDF-68F724891132}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC1AA4B7-1155-47E0-8EDF-68F724891132}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC1AA4B7-1155-47E0-8EDF-68F724891132}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC1AA4B7-1155-47E0-8EDF-68F724891132}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A19723-8AE6-4B10-AA7C-7B78D0EC77B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A19723-8AE6-4B10-AA7C-7B78D0EC77B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A19723-8AE6-4B10-AA7C-7B78D0EC77B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A19723-8AE6-4B10-AA7C-7B78D0EC77B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA5C0B31-8326-45F4-A60D-00F051BC106E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA5C0B31-8326-45F4-A60D-00F051BC106E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA5C0B31-8326-45F4-A60D-00F051BC106E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA5C0B31-8326-45F4-A60D-00F051BC106E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +112,14 @@ Global
 		{61A21C97-9305-4951-B98F-CAA126DB9E65} = {942ED434-8ED3-4007-A40E-7F89791D3C88}
 		{BF47091F-ED8C-4F8F-9B0D-7F0835E8B6E6} = {9FEC5B51-8250-47E2-95B8-76A0892B9C71}
 		{5771EC75-4DE0-4949-AA9B-7BDB9F62A7EA} = {61A21C97-9305-4951-B98F-CAA126DB9E65}
+		{52396993-CF41-4CDF-AEC7-8B438E73DE25} = {251ABFE5-5339-4837-8788-CB49734669D0}
+		{E8B12FE6-A241-48F8-9F78-62257A12365F} = {52396993-CF41-4CDF-AEC7-8B438E73DE25}
+		{4E61E2C5-1AD0-4FCA-A554-2732BADAA588} = {251ABFE5-5339-4837-8788-CB49734669D0}
+		{96A8DEB3-B383-4F4C-9134-791FA6C80C04} = {4E61E2C5-1AD0-4FCA-A554-2732BADAA588}
+		{EC1AA4B7-1155-47E0-8EDF-68F724891132} = {96A8DEB3-B383-4F4C-9134-791FA6C80C04}
+		{29A19723-8AE6-4B10-AA7C-7B78D0EC77B6} = {E8B12FE6-A241-48F8-9F78-62257A12365F}
+		{F7DBC93F-7E7B-4ED8-BD8D-A1C0EB1DA371} = {251ABFE5-5339-4837-8788-CB49734669D0}
+		{FA5C0B31-8326-45F4-A60D-00F051BC106E} = {F7DBC93F-7E7B-4ED8-BD8D-A1C0EB1DA371}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C109F494-9692-4153-ABE1-67F91CAA0D9D}

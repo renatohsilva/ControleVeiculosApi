@@ -106,6 +106,7 @@ namespace ControleVeiculos.Application
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ISenhaService, SenhaService>();
+            services.AddScoped<IEmailValido, EmailValido>();            
             services.AddScoped<IConfigurationManagerService, ConfigurationManagerService>();
         }
 

@@ -8,8 +8,8 @@ namespace ControleVeiculos.Service.Common.Interfaces
 {
     public interface IRelatorioService
     {
-        IQueryable<AbastecimentoAnualDto> GetLitrosAbastecidosPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario);
-        IQueryable<AbastecimentoAnualDto> GetValorAbastecidoPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario);
+        IQueryable<LitrosAbastecimentoMensalDto> GetLitrosAbastecidosPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario);
+        IQueryable<ValorAbastecimentoMensalDto> GetValorAbastecidoPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario);
         IQueryable<AbastecimentoMensalDto> GetQuilometragemPorAno(int ano, int idUsuario);
         IQueryable<AbastecimentoPorCarroDto> GetQuilometragemPorCarro(DateTime dataInicial, DateTime dataFinal, int idUsuario);
     }

@@ -18,15 +18,15 @@ namespace ControleVeiculos.Service.Common.Services
             this.abastecimentoRepository = abastecimentoRepository;
         }
 
-        public IQueryable<AbastecimentoAnualDto> GetLitrosAbastecidosPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario)
+        public IQueryable<LitrosAbastecimentoMensalDto> GetLitrosAbastecidosPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario)
         {
             IQueryable<Abastecimento> abastecimentos = abastecimentoRepository.GetAll().Where(abastecimento => abastecimento.UsuarioId == idUsuario
             && abastecimento.DataAbastecimento >= dataInicial
             && abastecimento.DataAbastecimento <= dataFinal);
 
-            IQueryable<AbastecimentoAnualDto> litrosAbastecidosPorAno = abastecimentos
+            IQueryable<LitrosAbastecimentoMensalDto> litrosAbastecidosPorAno = abastecimentos
                 .Select(k => new { k.DataAbastecimento, k.LitrosAbastecidos })
-                .GroupBy(x => new { x.DataAbastecimento.Year }, (key, group) => new AbastecimentoAnualDto
+                .GroupBy(x => new { x.DataAbastecimento.Year }, (key, group) => new LitrosAbastecimentoMensalDto
                 {
                     Ano = key.Year,
                     LitrosAbastecidos = group.Sum(k => k.LitrosAbastecidos)
@@ -36,16 +36,15 @@ namespace ControleVeiculos.Service.Common.Services
             return litrosAbastecidosPorAno;
         }
 
-
-        public IQueryable<AbastecimentoAnualDto> GetValorAbastecidoPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario)
+        public IQueryable<ValorAbastecimentoMensalDto> GetValorAbastecidoPorAno(DateTime dataInicial, DateTime dataFinal, int idUsuario)
         {
             IQueryable<Abastecimento> abastecimentos = abastecimentoRepository.GetAll().Where(abastecimento => abastecimento.UsuarioId == idUsuario
             && abastecimento.DataAbastecimento >= dataInicial
             && abastecimento.DataAbastecimento <= dataFinal);
 
-            IQueryable<AbastecimentoAnualDto> litrosAbastecidosPorAno = abastecimentos
+            IQueryable<ValorAbastecimentoMensalDto> litrosAbastecidosPorAno = abastecimentos
                 .Select(k => new { k.DataAbastecimento, k.ValorPago })
-                .GroupBy(x => new { x.DataAbastecimento.Year }, (key, group) => new AbastecimentoAnualDto
+                .GroupBy(x => new { x.DataAbastecimento.Year }, (key, group) => new ValorAbastecimentoMensalDto
                 {
                     Ano = key.Year,
                     ValorAbastecido = group.Sum(k => k.ValorPago)

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Globalization;
 
 namespace ControleVeiculos.Domain.DTOs
 {
-    public class AbastecimentoPorCarroDto
+    public class LitrosAbastecimentoMensalDto
     {
-        public decimal MediaQuilometragem {get; set; }
-
-        public string Placa { get; set; }
+        public decimal LitrosAbastecidos { get; set; }
 
         public int Ano { get; set; }
 
@@ -17,16 +14,15 @@ namespace ControleVeiculos.Domain.DTOs
             {
                 return false;
             }
-            return Equals(obj as AbastecimentoPorCarroDto);
+            return Equals(obj as LitrosAbastecimentoMensalDto);
         }
 
-        public bool Equals(AbastecimentoPorCarroDto obj)
+        public bool Equals(LitrosAbastecimentoMensalDto obj)
         {
             if (obj == null)
                 return false;
 
-            return Equals(obj.MediaQuilometragem, MediaQuilometragem)
-                && Equals(obj.Placa, Placa)
+            return Equals(obj.LitrosAbastecidos, LitrosAbastecidos)
                 && Equals(obj.Ano, Ano);
         }
 
@@ -35,7 +31,7 @@ namespace ControleVeiculos.Domain.DTOs
             // It does not metter int overflow
             unchecked
             {
-                return Tuple.Create(MediaQuilometragem, Placa, Ano).GetHashCode();
+                return Tuple.Create(LitrosAbastecidos, Ano).GetHashCode();
             }
         }
     }

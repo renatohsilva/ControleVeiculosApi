@@ -25,7 +25,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpGet("litrosporano")]
-        public async Task<ActionResult<List<AbastecimentoAnualDto>>> GetLitrosAbastecidosPorAno([FromHeader]DateTime dataInicial, [FromHeader] DateTime dataFinal)
+        public async Task<ActionResult<List<LitrosAbastecimentoMensalDto>>> GetLitrosAbastecidosPorAno([FromHeader]DateTime dataInicial, [FromHeader] DateTime dataFinal)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace ControleVeiculos.Application.Controllers
         }
 
         [HttpGet("valorporano")]
-        public async Task<ActionResult<List<AbastecimentoAnualDto>>> GetValorAbastecidosPorAno([FromHeader] DateTime dataInicial, [FromHeader] DateTime dataFinal)
+        public async Task<ActionResult<List<ValorAbastecimentoMensalDto>>> GetValorAbastecidosPorAno([FromHeader] DateTime dataInicial, [FromHeader] DateTime dataFinal)
         {
             try
             {
